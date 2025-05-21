@@ -1,0 +1,17 @@
+@use "@angular/material" as mat;
+
+.primary{
+    @include mat.theme((
+        color : mat.$azure-palette
+    ))
+}
+.secondary{
+    @include mat.theme((
+        color : mat.$magenta-palette
+    ))
+}
+.warn{
+    @include mat.theme((
+        color : mat.$red-palette
+    ))
+}

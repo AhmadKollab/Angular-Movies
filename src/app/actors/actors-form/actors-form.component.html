@@ -1,0 +1,28 @@
+<h2>Craete Actor</h2>
+<form [formGroup]="form" (submit)="saveChanges()">
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [formControl]="form.controls.name"/>
+        <mat-error>{{getErrorMassegeForName()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <mat-datepicker #picker></mat-datepicker>
+        <input matInput [matDatepicker]="picker" [formControl]="form.controls.acotorDateOfBirth">
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-error>{{getErrorMassegeForDateOfBirth()}}</mat-error>
+      </mat-form-field>
+
+      <app-input-img title="Actor's Picture" (selectedFile)="handleFileSelection($event)" [imageURL]="model?.picture"></app-input-img>
+
+      <div class="buttons-container">
+
+      
+
+        <button [disabled]="form.invalid" mat-flat-button type="submit">Save changes</button>
+        <a routerLink="/actors" mat-stroked-button>Cancel</a>
+      </div>
+      
+</form>
