@@ -3,6 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { ActorsCreationDIO } from '../actors.model';
 import { ActorsFormComponent } from "../actors-form/actors-form.component";
+import { ActorsService } from '../actors.service';
+import { extractErrors } from '../../shared/functions/extractErorrs';
 
 @Component({
   selector: 'app-create-actor',
@@ -12,12 +14,19 @@ import { ActorsFormComponent } from "../actors-form/actors-form.component";
 })
 export class CreateActorComponent {
   router = inject(Router);
+  actorsServie = inject(ActorsService)
+  errors : string[] = []
 
   saveChanges(actor : ActorsCreationDIO){
-    // .. save changers
-    console.log(actor)
-    this.router.navigate(["/actors"])
-
+    this.actorsServie.create(actor).subscribe({
+      next : () => {
+        this.router.navigate(["/actors"])
+      },
+      error : err => {
+        const errors = extractErrors(err)
+        this.errors = errors
+      }
+    })
 
   }
 
