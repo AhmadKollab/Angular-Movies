@@ -1,23 +1,47 @@
-import { Component, Input, numberAttribute } from '@angular/core';
+
+import { Component, inject, Input, numberAttribute, OnInit } from '@angular/core';
 import { ActorsCreationDIO, ActorsDIO } from '../actors.model';
 import { ActorsFormComponent } from "../actors-form/actors-form.component";
+import { ActorsService } from '../actors.service';
+import { Router } from '@angular/router';
+import { extractErrors } from '../../shared/functions/extractErorrs';
+import { LoadingComponent } from "../../shared/components/loading/loading.component";
+import { DisplayErrorsComponent } from "../../shared/components/display-errors/display-errors.component";
 
 @Component({
   selector: 'app-edit-actor',
-  imports: [ActorsFormComponent],
+  imports: [ActorsFormComponent, LoadingComponent, DisplayErrorsComponent],
   templateUrl: './edit-actor.component.html',
   styleUrl: './edit-actor.component.css'
 })
-export class EditActorComponent {
+export class EditActorComponent implements OnInit{
+  
   @Input({transform : numberAttribute})
   id! : number
+  actorsService = inject(ActorsService)
+  router = inject(Router)
+  model?: ActorsDIO
+  errors : string[] = []
 
-  model: ActorsDIO = {id : 1,name :"Cillian murvephe",acotorDateOfBirth: new Date('1948-05-25'), picture : 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/TomHanksPrincEdw031223_%2811_of_41%29_%28cropped%29.jpg/330px-TomHanksPrincEdw031223_%2811_of_41%29_%28cropped%29.jpg'};
+  ngOnInit(): void {
+     this.actorsService.getActorById(this.id).subscribe(actor => {
+      console.log("this is the actor :", actor)
+      this.model = actor;
+      console.log("this is the model",this.model)
+      console.log("this is the type of date in model",typeof(this.model.dateOfBirth))
+      console.log("this is the type of date in actor",typeof(actor.dateOfBirth))
+  }
+)
+}
 
   saveChanges(actor : ActorsCreationDIO){
-    //saveChanges
-    console.log('editing the actor',actor)
-    
+    this.actorsService.update(this.id,actor).subscribe({
+      next : () => this.router.navigate(['/actors']),
+      error : err =>{
+        const errors = extractErrors(err)
+        this.errors = errors
+      }
+    })
   }
 
 

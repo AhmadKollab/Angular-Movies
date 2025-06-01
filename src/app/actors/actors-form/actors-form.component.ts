@@ -23,7 +23,7 @@ export class ActorsFormComponent implements OnInit{
 
   form = this.formBuilder.group({
     name: ['', { validators: [Validators.required, firstLetterShouldBeUpperCase()] }],
-    acotorDateOfBirth: new FormControl<Data | null>(null ,{ validators: [Validators.required ,dateOfBirthCannotBeInTheFutue()]}),
+    dateOfBirth : new FormControl<Date | null>(null ,{ validators: [Validators.required ,dateOfBirthCannotBeInTheFutue()]}),
     picture : new FormControl<null | File | string>(null)
   })
 
@@ -41,7 +41,7 @@ export class ActorsFormComponent implements OnInit{
 
 
   getErrorMassegeForDateOfBirth(): String {
-    let field = this.form.controls.acotorDateOfBirth
+    let field = this.form.controls.dateOfBirth 
     if (field.hasError('required')) {
       return "the date of birth field is required"
     }
@@ -71,8 +71,8 @@ export class ActorsFormComponent implements OnInit{
   saveChanges(){
     const actor = this.form.value as ActorsCreationDIO
 
-    if(actor.acotorDateOfBirth){
-      actor.acotorDateOfBirth = moment(actor.acotorDateOfBirth).toDate();
+    if(actor.dateOfBirth){
+      actor.dateOfBirth = moment(actor.dateOfBirth).toDate();
     }
     if(typeof actor.picture === 'string'){
       actor.picture = undefined

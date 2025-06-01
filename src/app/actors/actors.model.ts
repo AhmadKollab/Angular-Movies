@@ -1,12 +1,12 @@
 export interface ActorsDIO {
     id : number;
     name : string;
-    acotorDateOfBirth : Date;
+    dateOfBirth  : Date;
     picture? : string
 }
 
 export interface ActorsCreationDIO {
     name : string;
-    acotorDateOfBirth : Date;
+    dateOfBirth : Date;
     picture? : File
 }
