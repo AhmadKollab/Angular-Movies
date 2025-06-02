@@ -10,6 +10,7 @@ import { CURD_SERVICE_TOKEN } from '../../providers/providers';
 import { PaginitionDTO } from '../../moduls/PagintionDTO';
 import { HttpResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ICRUDService } from '../../interfaces/ICRUDService';
 
 @Component({
   selector: 'app-index-entities',
@@ -17,8 +18,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './index-entities.component.html',
   styleUrl: './index-entities.component.css'
 })
-export class IndexEntitiesComponent<TDTO> {
-  CRUDService = inject(CURD_SERVICE_TOKEN)as any
+export class IndexEntitiesComponent<TDTO, TCreationDTO> {
+  CRUDService = inject(CURD_SERVICE_TOKEN) as ICRUDService<TDTO,TCreationDTO>
   entities! : TDTO[]
 
   paginition : PaginitionDTO = {page : 1 , recordsPerPage : 5}
@@ -52,8 +53,14 @@ console: any;
 
   delete(id : number ) {
     this.CRUDService.delete(id).subscribe(() => {
+      this.paginition.page = 1
       this.loadRecords()
     })
+  }
+  firstLetterToUppercase (value : string) {
+    if(!value) return value
+
+    return value.charAt(0).toUpperCase() + value.slice(1)
   }
 
 }

@@ -6,11 +6,12 @@ import { PaginitionDTO } from '../shared/moduls/PagintionDTO';
 import { Observable } from 'rxjs';
 import { buildQueryParams } from '../shared/functions/buildQueryParams';
 import { FormBuilder } from '@angular/forms';
+import { ICRUDService } from '../shared/interfaces/ICRUDService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActorsService {
+export class ActorsService implements ICRUDService<ActorsDIO ,ActorsCreationDIO> {
 
   private http = inject(HttpClient)
   private baseURL = environment.apiURL + "/actors"
@@ -22,7 +23,7 @@ export class ActorsService {
     return this.http.get<ActorsDIO[]>(this.baseURL, {params : queryParams , observe : 'response'})
   }
 
-  public getActorById(id : number) : Observable<ActorsDIO> {
+  public getById(id : number) : Observable<ActorsDIO> {
     return this.http.get<ActorsDIO>(`${this.baseURL}/${id}`)
   }
 

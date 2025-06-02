@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { buildQueryParams } from '../shared/functions/buildQueryParams';
 import { PaginitionDTO } from '../shared/moduls/PagintionDTO';
+import { ICRUDService } from '../shared/interfaces/ICRUDService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GenresService {
+export class GenresService implements ICRUDService<GenreDIO , GenreCreationDIO> {
 
   constructor() { }
 
@@ -21,7 +22,7 @@ export class GenresService {
     return this.http.get<GenreDIO[]>(this.baseURL, {params : qureyParams, observe : 'response'})
   }
 
-  public getGenreById(id : number) : Observable<GenreDIO> {
+  public getById(id : number) : Observable<GenreDIO> {
     return this.http.get<GenreDIO>(`${this.baseURL}/${id}`)
   }
 

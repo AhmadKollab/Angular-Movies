@@ -24,7 +24,7 @@ export class EditActorComponent implements OnInit{
   errors : string[] = []
 
   ngOnInit(): void {
-     this.actorsService.getActorById(this.id).subscribe(actor => {
+     this.actorsService.getById(this.id).subscribe(actor => {
       console.log("this is the actor :", actor)
       this.model = actor;
       console.log("this is the model",this.model)

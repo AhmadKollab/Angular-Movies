@@ -25,7 +25,7 @@ export class EditGenreComponent implements OnInit {
   errors : string[] = []
 
   ngOnInit(): void {
-    this.GenreService.getGenreById(this.id).subscribe(genre => {
+    this.GenreService.getById(this.id).subscribe(genre => {
       this.model = genre
     })
   }
