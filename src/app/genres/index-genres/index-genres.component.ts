@@ -12,7 +12,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { PaginitionDTO } from '../../shared/moduls/PagintionDTO';
 import { CURD_SERVICE_TOKEN } from '../../shared/providers/providers';
-import { IndexEntitiesComponent } from "../../shared/componets/index-entities/index-entities.component";
+import { IndexEntitiesComponent } from "../../shared/components/index-entities/index-entities.component";
 
 @Component({
   selector: 'app-index-genres',

@@ -1,5 +1,1 @@
-<h2>Create Genra</h2>
-
-<app-genres-form (postForm)="saveChanges($event)"></app-genres-form>
-
-<app-display-errors [errors]="errors" ></app-display-errors>
+<app-create-entities title="Create Genre" [formComponent]="genreForm" indexRoute="/genres"></app-create-entities>

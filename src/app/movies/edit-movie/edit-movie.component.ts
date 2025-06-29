@@ -3,6 +3,7 @@ import { popResultSelector } from 'rxjs/internal/util/args';
 import { MoviesCreationDTO, MoviesDTO } from '../movies-form/movies.moduls';
 import { MoviesFormComponent } from "../movies-form/movies-form.component";
 import { MultipleSelectorDTO } from '../../shared/components/multiple-slector/MultipleSelectorDTO';
+import { ActorAutoCompleteDTO } from '../../actors/actors.model';
 
 @Component({
   selector: 'app-edit-movie',
@@ -27,6 +28,11 @@ export class EditMovieComponent {
   nonSelectedTheaters : MultipleSelectorDTO[] = [{key : 3, description : 'RCPS'},]
 
   model : MoviesDTO = {id:1 , title:"Spider-man",releaseDate:new Date('2022-05-22'),trailer:'abcd',poster : 'https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg'}
+
+   selectedActors: ActorAutoCompleteDTO[] = [
+    {id: 2, name: 'Tom Hanks', character: 'Forrest Gump', picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Tom_Hanks_TIFF_2019.jpg/220px-Tom_Hanks_TIFF_2019.jpg' },
+    
+  ]
   
   saveChanges(movie : MoviesCreationDTO){
     console.log('editing the movie', movie)

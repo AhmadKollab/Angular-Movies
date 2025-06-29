@@ -11,33 +11,18 @@ import { GenresFormComponent } from "../genres-form/genres-form.component";
 import { GenresService } from '../genres.service';
 import { DisplayErrorsComponent } from "../../shared/components/display-errors/display-errors.component";
 import { extractErrors } from '../../shared/functions/extractErorrs';
+import { CURD_SERVICE_TOKEN } from '../../shared/providers/providers';
+import { CreateEntitiesComponent } from "../../shared/components/create-entities/create-entities.component";
 
 @Component({
   selector: 'app-create-genre',
-  imports: [GenresFormComponent, DisplayErrorsComponent],
+  imports: [GenresFormComponent, DisplayErrorsComponent, CreateEntitiesComponent],
   templateUrl: './create-genre.component.html',
-  styleUrl: './create-genre.component.css'
+  styleUrl: './create-genre.component.css',
+  providers : [
+    {provide : CURD_SERVICE_TOKEN , useClass : GenresService}
+  ]
 })
 export class CreateGenreComponent {
-  router = inject(Router);
-  GenresService = inject(GenresService)
-  errors : string[] = []
-  
-  saveChanges(genre : GenreCreationDIO){
-    // .. save changers
-    console.log(genre)
-    this.GenresService.create(genre).subscribe({
-      next : () =>{
-
-      this.router.navigate(["/genres"]);
-    },
-    error : err => {
-      const errors = extractErrors(err)
-      this.errors = errors
-      console.log(err)
-    }
-  })
-    
-  }
-
+  genreForm = GenresFormComponent
 }

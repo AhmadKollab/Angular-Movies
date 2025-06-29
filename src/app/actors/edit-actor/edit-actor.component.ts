@@ -7,42 +7,22 @@ import { Router } from '@angular/router';
 import { extractErrors } from '../../shared/functions/extractErorrs';
 import { LoadingComponent } from "../../shared/components/loading/loading.component";
 import { DisplayErrorsComponent } from "../../shared/components/display-errors/display-errors.component";
+import { CURD_SERVICE_TOKEN } from '../../shared/providers/providers';
+import { EditEntitiesComponent } from "../../shared/components/edit-entities/edit-entities.component";
 
 @Component({
   selector: 'app-edit-actor',
-  imports: [ActorsFormComponent, LoadingComponent, DisplayErrorsComponent],
+  imports: [ActorsFormComponent, LoadingComponent, DisplayErrorsComponent, EditEntitiesComponent],
   templateUrl: './edit-actor.component.html',
-  styleUrl: './edit-actor.component.css'
+  styleUrl: './edit-actor.component.css',
+  providers : [
+    {provide : CURD_SERVICE_TOKEN , useClass : ActorsService}
+  ]
 })
-export class EditActorComponent implements OnInit{
+export class EditActorComponent{
   
   @Input({transform : numberAttribute})
   id! : number
-  actorsService = inject(ActorsService)
-  router = inject(Router)
-  model?: ActorsDIO
-  errors : string[] = []
-
-  ngOnInit(): void {
-     this.actorsService.getById(this.id).subscribe(actor => {
-      console.log("this is the actor :", actor)
-      this.model = actor;
-      console.log("this is the model",this.model)
-      console.log("this is the type of date in model",typeof(this.model.dateOfBirth))
-      console.log("this is the type of date in actor",typeof(actor.dateOfBirth))
-  }
-)
-}
-
-  saveChanges(actor : ActorsCreationDIO){
-    this.actorsService.update(this.id,actor).subscribe({
-      next : () => this.router.navigate(['/actors']),
-      error : err =>{
-        const errors = extractErrors(err)
-        this.errors = errors
-      }
-    })
-  }
-
-
+  actorsForm = ActorsFormComponent
+  
 }

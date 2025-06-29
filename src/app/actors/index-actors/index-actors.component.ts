@@ -12,7 +12,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { GenericListComponent } from '../../shared/components/generic-list/generic-list.component';
 import { CommonModule } from '@angular/common';
 import { CURD_SERVICE_TOKEN } from '../../shared/providers/providers';
-import { IndexEntitiesComponent } from "../../shared/componets/index-entities/index-entities.component";
+import { IndexEntitiesComponent } from "../../shared/components/index-entities/index-entities.component";
 
 @Component({
   selector: 'app-index-actors',

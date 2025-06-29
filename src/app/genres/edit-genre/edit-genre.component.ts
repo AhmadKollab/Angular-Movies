@@ -6,40 +6,21 @@ import { LoadingComponent } from "../../shared/components/loading/loading.compon
 import { Router } from '@angular/router';
 import { extractErrors } from '../../shared/functions/extractErorrs';
 import { DisplayErrorsComponent } from "../../shared/components/display-errors/display-errors.component";
+import { CURD_SERVICE_TOKEN } from '../../shared/providers/providers';
+import { EditEntitiesComponent } from "../../shared/components/edit-entities/edit-entities.component";
 
 @Component({
   selector: 'app-edit-genre',
-  imports: [GenresFormComponent, LoadingComponent, DisplayErrorsComponent],
+  imports: [GenresFormComponent, LoadingComponent, DisplayErrorsComponent, EditEntitiesComponent],
   templateUrl: './edit-genre.component.html',
-  styleUrl: './edit-genre.component.css'
+  styleUrl: './edit-genre.component.css',
+  providers : [
+    {provide : CURD_SERVICE_TOKEN , useClass : GenresService}
+  ]
 })
-export class EditGenreComponent implements OnInit {
-  GenreService = inject(GenresService)
-  router = inject(Router)
-  
+export class EditGenreComponent{
+
   @Input({transform : numberAttribute})
   id! : number
-
-  model?: GenreDIO
-
-  errors : string[] = []
-
-  ngOnInit(): void {
-    this.GenreService.getById(this.id).subscribe(genre => {
-      this.model = genre
-    })
-  }
-
-  saveChanges(genre : GenreCreationDIO){
-    this.GenreService.update(this.id, genre).subscribe({
-      next :() => {
-        this.router.navigate(['/genres'])
-      },
-      error : err => {
-        const error = extractErrors(err)
-        this.errors = this.errors
-      }
-    })
-  }
-
+  genresForm = GenresFormComponent
 }

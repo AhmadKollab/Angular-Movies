@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MoviesCreationDTO } from '../movies-form/movies.moduls';
 import { MoviesFormComponent } from "../movies-form/movies-form.component";
 import { MultipleSelectorDTO } from '../../shared/components/multiple-slector/MultipleSelectorDTO';
+import { ActorAutoCompleteDTO } from '../../actors/actors.model';
 
 @Component({
   selector: 'app-create-movie',
@@ -28,6 +29,8 @@ export class CreateMovieComponent {
     {key : 3, description : 'RCPS'},]
 
   selectedTheater : MultipleSelectorDTO[] = []
+
+  selectedActors: ActorAutoCompleteDTO[] = [];
 
   saveChanges(movie: MoviesCreationDTO) {
     console.log('Creating the movie ,', movie)
